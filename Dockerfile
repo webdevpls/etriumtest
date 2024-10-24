@@ -14,7 +14,7 @@ COPY . .
 RUN npm run build
 
 # Expõe a porta onde o app rodará
-EXPOSE 5173
+EXPOSE 3000
 
 RUN npm install -g serve
 CMD [ "serve", "-s", "build" ]
