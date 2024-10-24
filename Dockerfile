@@ -14,7 +14,7 @@ COPY . .
 RUN npm run build
 
 # Expõe a porta onde o app rodará
-EXPOSE 3080
+EXPOSE 5173
 
-# Inicia a aplicação (rodando o build gerado)
-CMD ["npm", "run", "start"]
+RUN npm install -g serve
+CMD [ "serve", "-s", "build" ]
