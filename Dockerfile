@@ -1,15 +1,20 @@
-# Usar uma imagem base do Nginx
-FROM nginx:alpine
+FROM node:18.20.4
+WORKDIR /app
 
-# Copiar o conteúdo do diretório atual para o diretório padrão do Nginx
-COPY . /usr/share/nginx/html
+# Copia os arquivos de dependência
+COPY ["package.json", "package-lock.json*", "./"]
 
-# Expor a porta 3000
+# Instala as dependências
+RUN npm install
+
+# Copia o restante do código para a pasta de trabalho
+COPY . .
+
+# Compila o projeto
+RUN npm run build
+
+# Expõe a porta onde o app rodará
 EXPOSE 3080
 
-# Substituir a configuração padrão do Nginx
-RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/conf.d
-
-# Comando para iniciar o Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Inicia a aplicação (rodando o build gerado)
+CMD ["npm", "run", "start"]

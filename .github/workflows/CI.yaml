@@ -3,7 +3,7 @@ name: etrium-front CI
 on:
   push:
     branches:
-      - branch
+      - main
 
 jobs:
   build-and-deploy:

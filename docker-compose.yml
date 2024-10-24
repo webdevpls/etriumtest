@@ -1,9 +1,16 @@
-version: '3.8'
-
+version: '3'
 services:
-  web:
-    build: .
+  node:
+    image: etrium/website
+    container_name: etrium-website
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "3080:3080"
-    volumes:
-      - .:/usr/share/nginx/html
+    networks:
+      - etrium-network
+networks:
+  etrium-network:
+    external: true
